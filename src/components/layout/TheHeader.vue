@@ -23,7 +23,7 @@
           <div class="cart-div">
             <router-link to="/cart">Cart</router-link>
             <img src="../../assets/cart.svg" alt="Cart" />
-            <div class="cart-counter">0</div>
+            <div class="cart-counter">{{ this.$store.state.cartQuantity }}</div>
           </div>
           <router-link to="/about">About</router-link>
         </ul>
@@ -120,7 +120,7 @@ nav {
       gap: 4px;
       position: relative;
       background-color: #ecb645;
-      padding: 10px 25px;
+      padding: 10px 30px;
       border-radius: 50px;
       img {
         width: 25px;
@@ -129,7 +129,7 @@ nav {
       .cart-counter {
         position: absolute;
         top: 0px;
-        right: 15px;
+        right: 10px;
 
         border-radius: 50%;
         padding: 3px;

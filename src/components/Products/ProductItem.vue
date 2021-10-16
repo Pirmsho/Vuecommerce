@@ -4,7 +4,7 @@
       <router-link :to="idLink"
         ><h2 class="product-title">{{ product.title }}</h2></router-link
       >
-      <button>Add To Cart</button>
+      <router-link class="button" :to="idLink">See Details</router-link>
     </div>
     <p class="product-category">
       <span>Category: </span>{{ product.category }}
@@ -55,7 +55,7 @@ export default {
     h2 {
       font-size: 20px;
     }
-    button {
+    .button {
       padding: 10px 20px;
       border: 3px solid #ecb645;
       background: none;

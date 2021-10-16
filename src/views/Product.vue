@@ -4,7 +4,7 @@
       <div class="top-div">
         <h2 class="product-title">{{ product.title }}</h2>
 
-        <button>Add To Cart</button>
+        <button @click="addItemToCart()">Add To Cart</button>
       </div>
       <p class="product-category">
         <span>Category: </span>{{ product.category }}
@@ -32,6 +32,10 @@ export default {
         `https://fakestoreapi.com/products/${this.id}`
       );
       this.product = await response.json();
+    },
+    addItemToCart() {
+      this.$store.commit("addItemToCart", this.product);
+      console.log(this.$store.state.itemsInCart);
     },
   },
   mounted() {

@@ -33,9 +33,7 @@ export default {
   },
   methods: {
     fetchItemList() {
-      console.log(this.isLoading);
       this.$store.dispatch("fetchProducts");
-      console.log(this.isLoading);
     },
   },
 };

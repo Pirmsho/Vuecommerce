@@ -5,6 +5,11 @@ export default createStore({
     categories: null,
     products: null,
     isLoading: false,
+    cartQuantity: 0,
+    itemsInCart: [],
+    cartTotal: 0,
+    productId: null,
+    cartIDs: [],
   },
   mutations: {
     setCategories(state, categories) {
@@ -18,6 +23,18 @@ export default createStore({
     },
     endLoading(state) {
       state.isLoading = false;
+    },
+    addItemToCart(state, product) {
+      state.productId = product.id;
+
+      if (state.cartIDs.includes(state.productId)) {
+        state.cartQuantity++;
+      } else {
+        state.itemsInCart.push(product);
+        state.cartQuantity++;
+      }
+
+      state.itemsInCart.forEach((item) => state.cartIDs.push(item.id));
     },
   },
   actions: {
