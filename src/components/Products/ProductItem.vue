@@ -70,6 +70,8 @@ export default {
       &:hover {
         transform: scale(1.1);
         font-weight: bold;
+        color: #fff;
+        background-color: #ecb645;
       }
     }
   }
@@ -84,6 +86,11 @@ export default {
       width: 100%;
       height: 100%;
     }
+  }
+}
+@media (max-width: 650px) {
+  .top-div {
+    flex-direction: column;
   }
 }
 </style>

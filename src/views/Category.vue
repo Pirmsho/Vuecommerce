@@ -10,7 +10,9 @@
         <router-link :to="{ name: 'Product', params: { id: product.id } }"
           ><h2 class="product-title">{{ product.title }}</h2></router-link
         >
-        <button>Add To Cart</button>
+        <router-link class="detail-link" :to="'/product/' + product.id"
+          >See Details</router-link
+        >
       </div>
 
       <div class="image-div">
@@ -83,7 +85,7 @@ section {
     h2 {
       font-size: 20px;
     }
-    button {
+    .detail-link {
       padding: 10px 20px;
       border: 3px solid #ecb645;
       background: none;

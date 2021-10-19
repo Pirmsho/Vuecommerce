@@ -2,8 +2,8 @@
   <main>
     <header>
       <h2>Your cart overview:</h2>
-      <p>Quantity: {{ this.$store.state.cartQuantity }}</p>
-      <p>Total: {{ this.$store.state.cartTotal }}$</p>
+
+      <p>Total: {{ this.$store.state.cartTotal.toFixed(2) }}$</p>
     </header>
     <section class="cart-section">
       <div class="empty-cart" v-if="this.$store.state.itemsInCart.length === 0">
@@ -18,6 +18,11 @@
           <img :src="item.image" :alt="item.title" />
           <p>{{ item.title }}</p>
           <p>{{ item.price }}$</p>
+          <img
+            class="svg"
+            src="../assets/x-icon.svg"
+            @click="this.$store.commit('removeItemFromCart', item)"
+          />
         </div>
       </div>
     </section>
@@ -82,6 +87,11 @@ header {
         width: 100px;
         height: 100px;
         border-radius: 5px;
+      }
+      .svg {
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
       }
     }
   }

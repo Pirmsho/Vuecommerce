@@ -107,5 +107,10 @@ main {
       height: 100%;
     }
   }
+  @media (max-width: 650px) {
+    .top-div {
+      flex-direction: column;
+    }
+  }
 }
 </style>

@@ -5,29 +5,40 @@
         <router-link to="/"
           ><h1><span>Vue</span>Shop</h1></router-link
         >
+        <div
+          class="hamburger"
+          :class="{ responsive: !isResponsiveMenu }"
+          @click="toggleResponsiveMenu"
+        >
+          <img src="../../assets/hamburger.svg" alt="hamburger menu icon" />
+        </div>
       </div>
-      <div class="nav-items">
-        <ul class="nav-list">
-          <li @click="toggleDropdown">
-            Categories
-            <img
-              :class="{ flipped: isFlipped }"
-              src="../../assets/caret-down.svg"
-              alt=""
-            />
-            <transition name="dropdown">
-              <CategoriesDropdown v-if="dropdownVisible" />
-            </transition>
-          </li>
+      <transition name="responsive">
+        <div class="nav-items" v-if="!isResponsiveMenu">
+          <ul class="nav-list">
+            <li @click="toggleDropdown">
+              Categories
+              <img
+                :class="{ flipped: isFlipped }"
+                src="../../assets/caret-down.svg"
+                alt=""
+              />
+              <transition name="dropdown">
+                <CategoriesDropdown v-if="dropdownVisible" />
+              </transition>
+            </li>
 
-          <div class="cart-div">
-            <router-link to="/cart">Cart</router-link>
-            <img src="../../assets/cart.svg" alt="Cart" />
-            <div class="cart-counter">{{ this.$store.state.cartQuantity }}</div>
-          </div>
-          <router-link to="/about">About</router-link>
-        </ul>
-      </div>
+            <div class="cart-div">
+              <router-link to="/cart">Cart</router-link>
+              <img src="../../assets/cart.svg" alt="Cart" />
+              <div class="cart-counter">
+                {{ this.$store.state.cartQuantity }}
+              </div>
+            </div>
+            <router-link to="/about">About</router-link>
+          </ul>
+        </div>
+      </transition>
     </nav>
   </header>
 </template>
@@ -40,12 +51,17 @@ export default {
     return {
       dropdownVisible: false,
       isFlipped: false,
+      isResponsiveMenu: false,
     };
   },
   methods: {
     toggleDropdown() {
       this.dropdownVisible = !this.dropdownVisible;
       this.isFlipped = !this.isFlipped;
+    },
+    toggleResponsiveMenu() {
+      this.isResponsiveMenu = !this.isResponsiveMenu;
+      console.log(this.isResponsiveMenu);
     },
   },
 };
@@ -65,7 +81,11 @@ nav {
   .router-link-exact-active {
     color: lightgreen;
   }
-
+  .hamburger {
+    @media (min-width: 650px) {
+      display: none;
+    }
+  }
   a,
   li {
     text-decoration: none;
@@ -75,10 +95,14 @@ nav {
     display: flex;
     justify-content: center;
     gap: 6px;
+    transition: all 0.2s;
     img {
       transition: all 0.3s;
       transform: rotate(0deg);
     }
+  }
+  a:hover {
+    transform: scale(1.1);
   }
   h1 {
     font-size: 30px;
@@ -101,7 +125,7 @@ nav {
     }
     .dropdown {
       position: absolute;
-
+      z-index: 1;
       top: 27px;
       left: 0;
       display: flex;
@@ -122,6 +146,7 @@ nav {
       background-color: #ecb645;
       padding: 10px 30px;
       border-radius: 50px;
+      z-index: 0;
       img {
         width: 25px;
         height: 25px;
@@ -148,6 +173,52 @@ nav {
   }
   .dropdown-enter-to,
   .dropdown-leave-from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@media (max-width: 650px) {
+  .main-logo {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+  }
+  nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .nav-list {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .hamburger {
+    display: block;
+    cursor: pointer;
+    transition: 0.2 all;
+  }
+  .responsive {
+    filter: brightness(0) saturate(100%) invert(87%) sepia(9%) saturate(1876%)
+      hue-rotate(64deg) brightness(98%) contrast(92%);
+  }
+  .dropdown {
+    z-index: 1;
+  }
+  .responsive-enter-active {
+    transition: all 0.2s;
+  }
+  .responsive-leave-active {
+    transition: all 0.1s;
+  }
+  .responsive-enter-from,
+  .responsive-leave-to {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  .responsive-enter-to,
+  .responsive-leave-from {
     transform: translateY(0);
     opacity: 1;
   }

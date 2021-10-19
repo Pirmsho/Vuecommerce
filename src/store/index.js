@@ -33,8 +33,23 @@ export default createStore({
         state.itemsInCart.push(product);
         state.cartQuantity++;
       }
+      state.cartTotal = state.cartTotal + product.price;
 
       state.itemsInCart.forEach((item) => state.cartIDs.push(item.id));
+    },
+    removeItemFromCart(state, product) {
+      // state.productId = product.id;
+
+      state.itemsInCart = state.itemsInCart.filter(
+        (item) => item.id !== product.id
+      );
+      if (state.itemsInCart.length === 0) {
+        state.cartQuantity = 0;
+        state.cartTotal = 0;
+      } else {
+        state.cartQuantity = 0;
+        state.cartTotal = state.cartTotal - product.price;
+      }
     },
   },
   actions: {
